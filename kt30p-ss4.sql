@@ -1,59 +1,47 @@
-create database ShopManager;
-use ShopManager;
-drop table if exists Categories;
-create table categories (
-categoryry_id int auto_increment primary key,
-categoryry_name varchar(100) not null
+CREATE DATABASE ShopManager;
+USE ShopManager;
+
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL
 );
 
-create table products(
-produduct_id int auto_increment ,
- produduct_name varchar(100) not null, 
- price decimal(18,2),
- stock int default 0,
- categoryry_id  int auto_increment,
- foreign key(categoryry_id) references categories(categoryry_id)
+DROP TABLE IF EXISTS products;
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL, 
+    price DECIMAL(18,2),
+    stock INT DEFAULT 0,
+    category_id INT,
+    FOREIGN KEY(category_id) REFERENCES categories(category_id)
 );
 
-INSERT INTO Categories (category_id, category_name) VALUES
+INSERT INTO categories (category_id, category_name) VALUES
 (1, 'Điện tử'),
 (2, 'Thời trang');
 
 INSERT INTO products (product_name, price, stock, category_id) VALUES
 ('iPhone 15', 25000000, 10, 1),
-('Samsung S23', 20000000,5, 1 ),
+('Samsung S23', 20000000, 5, 1),
 ('Áo sơ mi nam', 5000000, 50, 2),
- ('Giày thể thao', 12000000, 20, 2);
+('Giày thể thao', 12000000, 20, 2);
 
-UPDATE  products
-SET price = '26000000'
-WHERE product_name ='iPhone 15';
+UPDATE products
+SET price = 26000000 
+WHERE product_name = 'iPhone 15';
 
-UPDATE  products
+UPDATE products
 SET stock = stock + 10
-WHERE  categoryry_id = 1;
+WHERE category_id = 1;
 
-delete from product
-where product_id = 4;
+DELETE FROM products
+WHERE product_id = 4;
 
-delete from product
-where price < 1000000;
+DELETE FROM products
+WHERE price < 1000000;
 
-select * from products;
-select * from products 
-where stock > 15;
-select * from products 
-where stock > 1000000 & stock < 25000000 ;
+SELECT * FROM products;
 
-
-
-
-
-
-
-
-
-
-
-
-
+SELECT * FROM products 
+WHERE stock > 15;
